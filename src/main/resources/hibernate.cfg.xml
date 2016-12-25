@@ -9,7 +9,7 @@
 		<property name="connection.password"></property>
    
 		<!-- JDBC connection pool (não usar em PRD!) -->
-		<property name="connection.pool_size">1</property>
+		<property name="connection.pool_size">10000</property>
    
 		<!-- SQL dialect -->
 		<property name="dialect">org.hibernate.dialect.HSQLDialect</property>
@@ -27,7 +27,7 @@
 		<property name="hbm2ddl.auto">update</property>
           
 		<!-- Entidades -->		
-		<mapping class="br.julano.owasp.models.LoginModel" />
+		<mapping class="br.juliano.owasp.models.LoginModel" />
 		
 	</session-factory>
 </hibernate-configuration>
