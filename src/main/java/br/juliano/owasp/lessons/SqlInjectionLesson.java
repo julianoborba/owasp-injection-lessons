@@ -71,6 +71,29 @@ public class SqlInjectionLesson {
 		model.addAttribute("logins", logins);
         return "sqlinjectionview";
         
+        /* Other examples - https://software-security.sans.org/developer-how-to/fix-sql-injection-in-java-hibernate
+        
+        // Positional parameter in HQL
+        Query hqlQuery = session.createQuery("from Orders as orders where orders.id = ?");
+        List results = hqlQuery.setString(0, "123-ADB-567-QTWYTFDL").list();
+        
+        // Named parameter in HQL
+        Query hqlQuery = session.createQuery("from Employees as emp where emp.incentive > :incentive");
+        List results = hqlQuery.setLong("incentive", new Long(10000)).list();
+        
+        // Named parameter list in HQL
+        List items = new ArrayList(); 
+        items.add("book"); items.add("clock"); items.add("ink");
+        List results = session.createQuery("from Cart as cart where cart.item in (:itemList)").setParameterList("itemList", items).list();
+        
+        // JavaBean in HQL
+        Query hqlQuery = session.createQuery("from Books as books where book.name = :name and book.author = :author");
+        List results = hqlQuery.setProperties(javaBean).list(); //assumes javaBean has getName() & getAuthor() methods.
+        
+        // Native-SQL
+        Query sqlQuery = session.createSQLQuery("Select * from Books where author = ?");
+        List results = sqlQuery.setString(0, "Charles Dickens").list(); */
+        
     }
 	
 	@RequestMapping(value = "/sqlinjection/impossible/escaped_inputs", method = RequestMethod.GET)
