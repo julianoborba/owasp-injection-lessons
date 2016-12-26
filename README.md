@@ -20,7 +20,7 @@ Just clone this repo and inside de project folder run mvn jetty:run.
 ## XSS
 
 	XSS can be possible in http://localhost:8080/xss/possible
-	Use the param Use input_param (e.g. http://localhost:8080/xss/possible?input_param=foo)
+	Use the param input_param (e.g. http://localhost:8080/xss/possible?input_param=foo)
 	
 	XSS should be impossible in http://localhost:8080/xss/impossible
 	Use the params:
