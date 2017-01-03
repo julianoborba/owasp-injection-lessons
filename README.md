@@ -7,24 +7,24 @@ Just clone this repo and inside de project folder run `mvn jetty:run`.
 
 ## SQL Injections
 
-	SQL Injections can be possible in http://localhost:8080/sqlinjection/possible
-	Use the param query_param (e.g. http://localhost:8080/sqlinjection/possible?query_param=foo)
+	SQL Injections can be possible in [http://localhost:8080/sqlinjection/possible](http://localhost:8080/sqlinjection/possible)
+	Use the param query_param (e.g. [http://localhost:8080/sqlinjection/possible?query_param=foo](http://localhost:8080/sqlinjection/possible?query_param=foo))
 	
-	SQL Injections should be impossible in http://localhost:8080/sqlinjection/impossible/parameterized_queries
+	SQL Injections should be impossible in [http://localhost:8080/sqlinjection/impossible/parameterized_queries](http://localhost:8080/sqlinjection/impossible/parameterized_queries)
 	Use the param query_param
 
-	SQL Injections should be impossible in http://localhost:8080/sqlinjection/impossible/escaped_inputs
+	SQL Injections should be impossible in [http://localhost:8080/sqlinjection/impossible/escaped_inputs](http://localhost:8080/sqlinjection/impossible/escaped_inputs)
 	Use the param query_param
 
-	SQL Injections should be impossible in http://localhost:8080/sqlinjection/impossible/whitelisted_inputs
+	SQL Injections should be impossible in [http://localhost:8080/sqlinjection/impossible/whitelisted_inputs](http://localhost:8080/sqlinjection/impossible/whitelisted_inputs)
 	Use the param query_param
 	
 ## XSS
 
-	XSS can be possible in http://localhost:8080/xss/possible
-	Use the param input_param (e.g. http://localhost:8080/xss/possible?input_param=foo)
+	XSS can be possible in [http://localhost:8080/xss/possible](http://localhost:8080/xss/possible)
+	Use the param input_param (e.g. [http://localhost:8080/xss/possible?input_param=foo](http://localhost:8080/xss/possible?input_param=foo))
 	
-	XSS should be impossible in http://localhost:8080/xss/impossible
+	XSS should be impossible in [http://localhost:8080/xss/impossible](http://localhost:8080/xss/impossible)
 	Use the params:
 		body_input_param
 		img_src_input_param
