@@ -7,21 +7,21 @@ Just clone this repo and inside de project folder run `mvn jetty:run`.
 
 ## SQL Injections
 
-* SQL Injections can be possible in [http://localhost:8080/sqlinjection/possible](http://localhost:8080/sqlinjection/possible)
+* SQL Injections can be possible in [http://localhost:8080/sqlinjection/possible](http://localhost:8080/sqlinjection/possible).
 
-Use the param query_param (e.g. [http://localhost:8080/sqlinjection/possible?query_param=foo](http://localhost:8080/sqlinjection/possible?query_param=foo))
+⋅⋅⋅Use the param query_param (e.g. [http://localhost:8080/sqlinjection/possible?query_param=foo](http://localhost:8080/sqlinjection/possible?query_param=foo))
 	
 * SQL Injections should be impossible in [http://localhost:8080/sqlinjection/impossible/parameterized_queries](http://localhost:8080/sqlinjection/impossible/parameterized_queries)
 
-Use the param query_param
+⋅⋅⋅Use the param query_param
 
 * SQL Injections should be impossible in [http://localhost:8080/sqlinjection/impossible/escaped_inputs](http://localhost:8080/sqlinjection/impossible/escaped_inputs)
 
-Use the param query_param
+⋅⋅⋅Use the param query_param
 
 * SQL Injections should be impossible in [http://localhost:8080/sqlinjection/impossible/whitelisted_inputs](http://localhost:8080/sqlinjection/impossible/whitelisted_inputs)
 
-Use the param query_param
+⋅⋅⋅Use the param query_param
 	
 ## XSS
 
