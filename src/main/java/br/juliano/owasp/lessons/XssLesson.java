@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.juliano.owasp.models.QueryParamXSSModel;
+
 @Controller
 public class XssLesson {
 	
@@ -41,52 +43,92 @@ public class XssLesson {
     		@RequestParam(value="atribute_name_input_param", required=false, defaultValue="TRY_PUT_UNTRUSTED_DATA_HERE") String atribute_name_input_param,
     		Model model) {
 		
-		String safe_body_input_param = ESAPI.encoder().encodeForHTML(body_input_param);
-		String safe_img_src_input_param = "";
-		if (img_src_input_param != null){
-			boolean isValidSrcURL = ESAPI.validator().isValidInput("URLContext", img_src_input_param, "URL", 255, false); 
-			if (isValidSrcURL) 
-				safe_img_src_input_param = ESAPI.encoder().encodeForHTMLAttribute(img_src_input_param);
-		}
-		String safe_a_href_input_param = "";
-		if (a_href_input_param != null) {
-			boolean isValidHrefURL = ESAPI.validator().isValidInput("URLContext", a_href_input_param, "URL", 255, false); 
-			if (isValidHrefURL)
-				safe_a_href_input_param = ESAPI.encoder().encodeForHTMLAttribute(a_href_input_param);
-		}
-		String safe_onmouseover_input_param = ESAPI.encoder().encodeForJavaScript(onmouseover_input_param);
-		String safe_js_input_param = ESAPI.encoder().encodeForJavaScript(js_input_param);
-		String safe_json_input_param = "";
-		if (json_input_param != null) {
-			safe_json_input_param = json_input_param.replaceAll("<", "\\"+CharUtils.unicodeEscaped('<')).replaceAll(">", "\\"+CharUtils.unicodeEscaped('>'));
-		}
-		String safe_style_input_param = ESAPI.encoder().encodeForCSS(style_input_param);
-		String safe_url_param_input_param = "";
-		try {
-			safe_url_param_input_param = ESAPI.encoder().encodeForURL(url_param_input_param);
-		} catch (EncodingException e) {
-			e.printStackTrace();
-		}
-		String safe_broken_tag_input_param = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).sanitize(broken_tag_input_param);	
-		String safe_comment_input_param = ESAPI.encoder().encodeForHTML(comment_input_param);
-		String safe_tag_input_param = ESAPI.encoder().encodeForHTML(tag_input_param);
-		String safe_atribute_name_input_param = ESAPI.encoder().encodeForHTML(atribute_name_input_param);
+		QueryParamXSSModel vuln = new QueryParamXSSModel(
+				body_input_param,
+				img_src_input_param,
+				a_href_input_param,
+				onmouseover_input_param,
+				js_input_param,
+				json_input_param,
+				style_input_param,
+				url_param_input_param,
+				broken_tag_input_param,
+				comment_input_param,
+				tag_input_param,
+				atribute_name_input_param
+		);
 		
-		model.addAttribute("body_input_param", safe_body_input_param);
-		model.addAttribute("img_src_input_param", safe_img_src_input_param);
-		model.addAttribute("a_href_input_param", safe_a_href_input_param);
-		model.addAttribute("onmouseover_input_param", safe_onmouseover_input_param);
-		model.addAttribute("js_input_param", safe_js_input_param);
-		model.addAttribute("json_input_param", safe_json_input_param);
-		model.addAttribute("style_input_param", safe_style_input_param);
-		model.addAttribute("url_param_input_param", safe_url_param_input_param);
-		model.addAttribute("broken_tag_input_param", safe_broken_tag_input_param);
-		model.addAttribute("comment_input_param", safe_comment_input_param);
-		model.addAttribute("tag_input_param", safe_tag_input_param);
-		model.addAttribute("atribute_name_input_param", safe_atribute_name_input_param);
+		// what matters is here 
+		QueryParamXSSModel safe = makeMeSafe(vuln);
 		
+		safeModel(safe, model);
         return "noxssview";
         
     }
+
+	private QueryParamXSSModel makeMeSafe(QueryParamXSSModel vuln) {
+		
+		QueryParamXSSModel safe = new QueryParamXSSModel();
+		
+		// sample, encode for HTML
+		safe.setBody_input_param((ESAPI.encoder().encodeForHTML(vuln.getBody_input_param())));
+		safe.setComment_input_param((ESAPI.encoder().encodeForHTML(vuln.getComment_input_param())));
+		safe.setTag_input_param((ESAPI.encoder().encodeForHTML(vuln.getTag_input_param())));
+		safe.setAtribute_name_input_param((ESAPI.encoder().encodeForHTML(vuln.getAtribute_name_input_param())));
+		
+		// sample, check for valid input and encode for HTML attribute
+		if (vuln.getImg_src_input_param() != null){
+			boolean isValidSrcURL = ESAPI.validator().isValidInput("URLContext", vuln.getImg_src_input_param(), "URL", 255, false); 
+			if (isValidSrcURL) 
+				safe.setImg_src_input_param((ESAPI.encoder().encodeForHTMLAttribute(vuln.getImg_src_input_param())));
+		}
+		if (vuln.getA_href_input_param() != null) {
+			boolean isValidHrefURL = ESAPI.validator().isValidInput("URLContext", vuln.getA_href_input_param(), "URL", 255, false); 
+			if (isValidHrefURL)
+				safe.setA_href_input_param((ESAPI.encoder().encodeForHTMLAttribute(vuln.getA_href_input_param())));
+		}
+		
+		// sample, encode for JavaScript
+		safe.setOnmouseover_input_param((ESAPI.encoder().encodeForJavaScript(vuln.getOnmouseover_input_param())));
+		safe.setJs_input_param((ESAPI.encoder().encodeForJavaScript(vuln.getJs_input_param())));
+		
+		// sample, escaping JSON
+		if (vuln.getJson_input_param() != null) {
+			safe.setJson_input_param((vuln.getJson_input_param().replaceAll("<", "\\"+CharUtils.unicodeEscaped('<')).replaceAll(">", "\\"+CharUtils.unicodeEscaped('>'))));
+		}
+		
+		// sample, encode for CSS
+		safe.setStyle_input_param((ESAPI.encoder().encodeForCSS(vuln.getStyle_input_param())));
+		
+		// sample, encode for URL
+		try {
+			safe.setUrl_param_input_param((ESAPI.encoder().encodeForURL(vuln.getUrl_param_input_param())));
+		} catch (EncodingException e) {
+			e.printStackTrace();
+		}
+		
+		// sample, dealing with unclosed HTML tags
+		safe.setBroken_tag_input_param((Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).sanitize(vuln.getBroken_tag_input_param())));
+		
+		return safe;
+		
+	}
+
+	private void safeModel(QueryParamXSSModel safe, Model model) {
+		
+		model.addAttribute("body_input_param", safe.getBody_input_param());
+		model.addAttribute("img_src_input_param", safe.getImg_src_input_param());
+		model.addAttribute("a_href_input_param", safe.getA_href_input_param());
+		model.addAttribute("onmouseover_input_param", safe.getOnmouseover_input_param());
+		model.addAttribute("js_input_param", safe.getJs_input_param());
+		model.addAttribute("json_input_param", safe.getJson_input_param());
+		model.addAttribute("style_input_param", safe.getStyle_input_param());
+		model.addAttribute("url_param_input_param", safe.getUrl_param_input_param());
+		model.addAttribute("broken_tag_input_param", safe.getBroken_tag_input_param());
+		model.addAttribute("comment_input_param", safe.getComment_input_param());
+		model.addAttribute("tag_input_param", safe.getTag_input_param());
+		model.addAttribute("atribute_name_input_param", safe.getAtribute_name_input_param());
+		
+	}
 
 }
