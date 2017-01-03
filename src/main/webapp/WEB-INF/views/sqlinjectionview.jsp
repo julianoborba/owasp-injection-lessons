@@ -2,18 +2,17 @@
 <html>
 	<head>
 		<title>Injection</title>
-		<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container">
-			<h2><a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet">https://www.owasp.org</a> - SQL Injection</h2>
+			<h1><a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet">https://www.owasp.org</a> - SQL Injection</h1>
 			<p>SQL Injection flaws are introduced when software developers create dynamic database queries that include user supplied input. To avoid SQL injection flaws is simple. Developers need to either: a) stop writing dynamic queries; and/or b) prevent user supplied input which contains malicious SQL from affecting the logic of the executed query.</p>
 			<p>Primary Defenses:
-				<ul>
-				    <li>Option #1: Use of Prepared Statements (Parameterized Queries)</li>
-				    <li>Option #2: Use of Stored Procedures</li>
-				    <li>Option #3: Escaping all User Supplied Input</li>
-				</ul>
+				<ol>
+				    <li>: Use of Prepared Statements (Parameterized Queries)</li>
+				    <li>: Use of Stored Procedures</li>
+				    <li>: Escaping all User Supplied Input</li>
+				</ol>
 			</p>
 			<p>Additional Defenses:
 			    <ul>
@@ -33,7 +32,5 @@
 			<hr>
 			<p>Try to catch me - <a href="http://tools.kali.org/tools-listing">http://tools.kali.org/tools-listing</a></p>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<script src="/resources/js/bootstrap.min.js"></script>
 	</body>
 </html>
