@@ -1,7 +1,7 @@
 # owasp-injection-lessons
 To mess arround with OWASP top 10 risks, this will be for injection lessons. I'm seeking a very simple way to setup the risk, find it with some tools, fix it and see that we now are a bit more aware about injections common flaws... whatever they are!
 
-This stuff contains the compilation rules of SQL Injection Prevention Cheat Sheet and Cross Site Scripting Prevention Cheat Sheet from OWASP and samples of vulnerabilities and fixes for each hole.
+This stuff contains the compilation rules of SQL Injection Prevention Cheat Sheet, Cross Site Scripting Prevention Cheat Sheet from OWASP and samples of vulnerabilities and fixes for each hole.
 
 Just clone this repo and inside de project folder run `mvn jetty:run`.
 
